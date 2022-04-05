@@ -1,0 +1,12 @@
+"one sample t test its ohk"
+apple<-read.csv(file.choose(),sep=",",header = T)
+summary(apple)
+t.test(apple$C1, alternative="greater", mu=97)
+
+"independent t test its ohk"
+time<-read.csv(file.choose(),sep=",",header = T)
+t.test(time$united.kingdom,time$germany,alternative = "two.sided", var.equal = TRUE)
+
+"paired t test  its ohk"
+time1<-read.csv(file.choose(),sep=",",header = T)
+t.test(time1$weight.before,time1$weight.after,alternative = "greater",paired = T)
