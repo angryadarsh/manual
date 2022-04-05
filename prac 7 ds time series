@@ -1,0 +1,33 @@
+#exploring the data
+data("AirPassengers")
+class(AirPassengers)
+start(AirPassengers)
+end(AirPassengers)
+frequency(AirPassengers)
+summary(AirPassengers)
+
+plot(AirPassengers)
+abline(reg = lm(AirPassengers~time(AirPassengers)))#used to add one or more straight lines to a graph.
+
+
+cycle(AirPassengers) #"gives the positions in the cycle of each observation
+plot(aggregate(AirPassengers,FUN = mean)) #Fun=function to compute the summary statistics which can be applied to all data subsets.
+
+boxplot(AirPassengers~cycle(AirPassengers))
+
+#acf=autocorrelation function , to make the variance stationary
+#preprocessing the data
+acf(log(AirPassengers))
+acf(diff(log(AirPassengers)))
+pacf(diff(log(AirPassengers))) #pacf=partial autocorrelation function
+plot(diff(log(AirPassengers)))
+
+#auto regression integration moving avg model fitting 
+(fit = arima(log(AirPassengers),c(0,1,1),seasonal = list(order=c(0,1,1),period=12)))
+
+pred = predict(fit, n.ahead = 10*12)
+pred1 = round(2.718^pred$pred,0)
+pred1
+
+ts.plot(AirPassengers,pred1,log="y",lty = c(1,3))
+        
