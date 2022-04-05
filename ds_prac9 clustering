@@ -1,0 +1,34 @@
+"k-means clustering"
+data("iris")
+names(iris)
+new_data = subset(iris,select = c(-Species))
+new_data
+c1=kmeans(new_data,3)
+c1
+
+data=new_data
+
+wss = sapply(1:15, function(k) {kmeans(data,k)$tot.withinss})
+
+wss
+
+plot(1:55,wss,
+     type = "b",pch=19,frame = FALSE,
+     xlab = "number of clusters k",
+     ylab = "total within-clusters sum of squares")
+
+install.packages("cluster")
+library(cluster)
+clusplot(new_data,c1$cluster,color=TRUE,shade = TRUE,labels=2,lines=0)
+c1$cluster
+c1$centers
+
+"agglomarative clustering"
+clusters=hclust(dist(iris[,3:4]))
+plot(clusters)
+clusterCut = cutree(clusters,3)
+table(clusterCut,iris$Species)
+
+clusters=hclust(dist(iris[,3:4]),method = 'average')
+clusterCut1 = cutree(clusters,3)
+plot(clusters)
