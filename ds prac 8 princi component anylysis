@@ -1,0 +1,36 @@
+View(iris)
+data_iris = iris[1:4]
+cov_data = cov(data_iris)
+#find out the eigenvectors and eigenvalues using covariance matrix 
+Eigen_data = eigen(cov_data)
+#using the inbuilt function 
+pca_data = princomp(data_iris,cor="False") 
+#princomp performs a principal components analysis on the given numeric data matrix
+# and returns the results as an object of class princomp
+
+#lets now compare the output variance
+Eigen_data$values
+pca_data$sdev^2
+pca_data$loadings[,1:4]
+Eigen_data$vectors
+summary(pca_data)
+biplot(pca_data)
+
+screeplot(pca_data,type = "lines")
+install.packages("naivebayes")
+
+#select the first principal component for the seconf model
+model2 = pca_data$loadings[,1]
+#for the second model we need to calculate score by multiplying our loading with data
+model2_scores = as.matrix(data_iris)%%model2
+#loading libraries for naiveBayes model
+library(class)
+install.packages("e1071")
+#fitting the first model over the entire data
+mod1=naivebayes(iris[,1:4],iris[,5])
+#fitting the second model using the first principal components
+mod2=naivebayes(model2_scores,iris[,5])
+#accuracy for the first model
+table(predict(mod1,iris[,1:4]),iris[,5])
+#accuracy for the second model
+table(predict(mod2,model2_scores),iris[,5])
