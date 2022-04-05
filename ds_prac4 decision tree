@@ -63,4 +63,13 @@ library(rpart.plot)
 rpart.plot(tree_baseball)
 tree_baseball$variable.importance
 
+or
+
+library(rpart.plot)
+titanic<-read.csv(file.choose(),header = T,sep=",")
+summary(titanic)
+fit <- rpart(Survived ~ Sex + Age + SibSp + Parch + Embarked,data=titanic)
+rpart.plot(fit)
+
+
 
